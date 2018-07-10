@@ -13,31 +13,36 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.fanwe.lib.select.config;
+package cn.linhome.lib.select.config;
 
+import android.graphics.drawable.Drawable;
 import android.view.View;
-import android.widget.TextView;
 
 
-class TextViewTextColorHandler extends ViewPropertyHandler<Integer>
+class ViewBackgroundHandler extends ViewPropertyHandler<Drawable>
 {
-    public TextViewTextColorHandler(View view)
+    public ViewBackgroundHandler(View view)
     {
         super(view);
-        if (!(view instanceof TextView))
-        {
-            throw new IllegalArgumentException("view must be instance of TextView");
-        }
     }
 
     @Override
-    protected void onViewSelectedChanged(boolean selected, Integer value, View view)
+    protected void onViewSelectedChanged(boolean selected, Drawable value, View view)
     {
-        if (value == null)
+        setBackgroundDrawable(view, value);
+    }
+
+    public static void setBackgroundDrawable(View view, Drawable drawable)
+    {
+        if (view == null)
         {
             return;
         }
-        TextView textView = (TextView) view;
-        textView.setTextColor(value);
+        int paddingLeft = view.getPaddingLeft();
+        int paddingTop = view.getPaddingTop();
+        int paddingRight = view.getPaddingRight();
+        int paddingBottom = view.getPaddingBottom();
+        view.setBackgroundDrawable(drawable);
+        view.setPadding(paddingLeft, paddingTop, paddingRight, paddingBottom);
     }
 }

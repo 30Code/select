@@ -13,15 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.fanwe.lib.select.config;
+package cn.linhome.lib.select.config;
 
 import android.view.View;
-import android.view.ViewGroup;
 
 
-class ViewHeightHandler extends ViewPropertyHandler<Integer>
+class ViewVisibilityHandler extends ViewPropertyHandler<Integer>
 {
-    public ViewHeightHandler(View view)
+    public ViewVisibilityHandler(View view)
     {
         super(view);
     }
@@ -34,11 +33,9 @@ class ViewHeightHandler extends ViewPropertyHandler<Integer>
             return;
         }
 
-        ViewGroup.LayoutParams params = view.getLayoutParams();
-        if (params != null && params.height != value)
+        if (view.getVisibility() != value)
         {
-            params.height = value;
-            view.setLayoutParams(params);
+            view.setVisibility(value);
         }
     }
 }

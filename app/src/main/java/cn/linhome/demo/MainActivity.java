@@ -1,4 +1,4 @@
-package com.fanwe.demo;
+package cn.linhome.demo;
 
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;

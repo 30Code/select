@@ -13,30 +13,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.fanwe.lib.select.config;
+package cn.linhome.lib.select.config;
 
 import android.view.View;
-import android.widget.ImageView;
 
-class ImageViewImageResIdHandler extends ViewPropertyHandler<Integer>
+
+class ViewAlphaHandler extends ViewPropertyHandler<Float>
 {
-    public ImageViewImageResIdHandler(View view)
+    public ViewAlphaHandler(View view)
     {
         super(view);
-        if (!(view instanceof ImageView))
-        {
-            throw new IllegalArgumentException("view must be instance of ImageView");
-        }
     }
 
     @Override
-    protected void onViewSelectedChanged(boolean selected, Integer value, View view)
+    protected void onViewSelectedChanged(boolean selected, Float value, View view)
     {
         if (value == null)
         {
             return;
         }
-        ImageView imageView = (ImageView) view;
-        imageView.setImageResource(value);
+
+        view.setAlpha(value);
     }
 }

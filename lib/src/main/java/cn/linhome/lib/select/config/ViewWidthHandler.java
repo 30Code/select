@@ -13,36 +13,32 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.fanwe.lib.select.config;
+package cn.linhome.lib.select.config;
 
-import android.graphics.drawable.Drawable;
 import android.view.View;
+import android.view.ViewGroup;
 
 
-class ViewBackgroundHandler extends ViewPropertyHandler<Drawable>
+class ViewWidthHandler extends ViewPropertyHandler<Integer>
 {
-    public ViewBackgroundHandler(View view)
+    public ViewWidthHandler(View view)
     {
         super(view);
     }
 
     @Override
-    protected void onViewSelectedChanged(boolean selected, Drawable value, View view)
+    protected void onViewSelectedChanged(boolean selected, Integer value, View view)
     {
-        setBackgroundDrawable(view, value);
-    }
-
-    public static void setBackgroundDrawable(View view, Drawable drawable)
-    {
-        if (view == null)
+        if (value == null)
         {
             return;
         }
-        int paddingLeft = view.getPaddingLeft();
-        int paddingTop = view.getPaddingTop();
-        int paddingRight = view.getPaddingRight();
-        int paddingBottom = view.getPaddingBottom();
-        view.setBackgroundDrawable(drawable);
-        view.setPadding(paddingLeft, paddingTop, paddingRight, paddingBottom);
+
+        ViewGroup.LayoutParams params = view.getLayoutParams();
+        if (params != null && params.width != value)
+        {
+            params.width = value;
+            view.setLayoutParams(params);
+        }
     }
 }

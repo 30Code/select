@@ -13,17 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.fanwe.lib.select.config;
+package cn.linhome.lib.select.config;
 
 import android.view.View;
-import android.view.ViewGroup;
+import android.widget.TextView;
 
 
-class ViewWidthHandler extends ViewPropertyHandler<Integer>
+class TextViewTextColorHandler extends ViewPropertyHandler<Integer>
 {
-    public ViewWidthHandler(View view)
+    public TextViewTextColorHandler(View view)
     {
         super(view);
+        if (!(view instanceof TextView))
+        {
+            throw new IllegalArgumentException("view must be instance of TextView");
+        }
     }
 
     @Override
@@ -33,12 +37,7 @@ class ViewWidthHandler extends ViewPropertyHandler<Integer>
         {
             return;
         }
-
-        ViewGroup.LayoutParams params = view.getLayoutParams();
-        if (params != null && params.width != value)
-        {
-            params.width = value;
-            view.setLayoutParams(params);
-        }
+        TextView textView = (TextView) view;
+        textView.setTextColor(value);
     }
 }
