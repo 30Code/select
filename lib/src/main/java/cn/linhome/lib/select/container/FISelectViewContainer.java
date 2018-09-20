@@ -19,12 +19,12 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import cn.linhome.lib.select.config.SDSelectImageViewConfig;
-import cn.linhome.lib.select.config.SDSelectTextViewConfig;
-import cn.linhome.lib.select.config.SDSelectViewConfig;
+import cn.linhome.lib.select.config.FImageViewSelectConfig;
+import cn.linhome.lib.select.config.FTextViewSelectConfig;
+import cn.linhome.lib.select.config.FViewSelectConfig;
 
 
-public interface ISDSelectViewContainer
+public interface FISelectViewContainer
 {
     /**
      * 调用setSelected的时候是否也触发View的setSelected方法，默认false
@@ -39,7 +39,7 @@ public interface ISDSelectViewContainer
      * @param view
      * @return
      */
-    SDSelectViewConfig config(View view);
+    FViewSelectConfig config(View view);
 
     /**
      * 把View添加到容器中，并返回该View对应的Config
@@ -47,7 +47,7 @@ public interface ISDSelectViewContainer
      * @param view
      * @return
      */
-    SDSelectImageViewConfig configImage(ImageView view);
+    FImageViewSelectConfig configImage(ImageView view);
 
     /**
      * 把View添加到容器中，并返回该View对应的Config
@@ -55,7 +55,7 @@ public interface ISDSelectViewContainer
      * @param view
      * @return
      */
-    SDSelectTextViewConfig configText(TextView view);
+    FTextViewSelectConfig configText(TextView view);
 
     /**
      * 把View和对应的Config移除

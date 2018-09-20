@@ -24,33 +24,33 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import cn.linhome.lib.select.config.SDSelectImageViewConfig;
-import cn.linhome.lib.select.config.SDSelectTextViewConfig;
-import cn.linhome.lib.select.config.SDSelectViewConfig;
-import cn.linhome.lib.select.container.ISDSelectViewContainer;
-import cn.linhome.lib.select.container.SDSelectViewContainer;
+import cn.linhome.lib.select.config.FImageViewSelectConfig;
+import cn.linhome.lib.select.config.FTextViewSelectConfig;
+import cn.linhome.lib.select.config.FViewSelectConfig;
+import cn.linhome.lib.select.container.FISelectViewContainer;
+import cn.linhome.lib.select.container.FSelectViewContainer;
 
-public class SDSelectView extends FrameLayout implements ISDSelectViewContainer
+public class FSelectView extends FrameLayout implements FISelectViewContainer
 {
-    public SDSelectView(Context context)
+    public FSelectView(Context context)
     {
         super(context);
         init();
     }
 
-    public SDSelectView(Context context, AttributeSet attrs)
+    public FSelectView(Context context, AttributeSet attrs)
     {
         super(context, attrs);
         init();
     }
 
-    public SDSelectView(Context context, AttributeSet attrs, int defStyleAttr)
+    public FSelectView(Context context, AttributeSet attrs, int defStyleAttr)
     {
         super(context, attrs, defStyleAttr);
         init();
     }
 
-    private SDSelectViewContainer mSelectViewContainer = new SDSelectViewContainer();
+    private FSelectViewContainer mSelectViewContainer = new FSelectViewContainer();
 
     private void init()
     {
@@ -85,19 +85,19 @@ public class SDSelectView extends FrameLayout implements ISDSelectViewContainer
     }
 
     @Override
-    public SDSelectViewConfig config(View view)
+    public FViewSelectConfig config(View view)
     {
         return mSelectViewContainer.config(view);
     }
 
     @Override
-    public SDSelectImageViewConfig configImage(ImageView view)
+    public FImageViewSelectConfig configImage(ImageView view)
     {
         return mSelectViewContainer.configImage(view);
     }
 
     @Override
-    public SDSelectTextViewConfig configText(TextView view)
+    public FTextViewSelectConfig configText(TextView view)
     {
         return mSelectViewContainer.configText(view);
     }

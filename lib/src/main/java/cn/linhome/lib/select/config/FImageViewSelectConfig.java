@@ -17,48 +17,38 @@ package cn.linhome.lib.select.config;
 
 import android.view.View;
 
-
-public class SDSelectImageViewConfig extends SDSelectViewConfig
+public class FImageViewSelectConfig extends FViewSelectConfig
 {
     private ImageViewImageResIdHandler mImageResIdHandler;
 
-    SDSelectImageViewConfig(View view)
+    FImageViewSelectConfig(View view)
     {
         super(view);
     }
 
     //---------- properties start ----------
 
-    public SDSelectImageViewConfig setImageResIdNormal(Integer value)
+    public FImageViewSelectConfig setImageResIdNormal(Integer value)
     {
         getImageResIdHandler().setValueNormal(value);
-        addOrRemoveHandler(getImageResIdHandler());
         return this;
     }
 
-    public SDSelectImageViewConfig setImageResIdSelected(Integer value)
+    public FImageViewSelectConfig setImageResIdSelected(Integer value)
     {
         getImageResIdHandler().setValueSelected(value);
-        addOrRemoveHandler(getImageResIdHandler());
         return this;
     }
 
     //---------- properties end ----------
 
     @Override
-    protected boolean onReleaseHandler(ViewPropertyHandler handler)
+    protected void onReleaseHandler(ViewPropertyHandler handler)
     {
-        if (super.onReleaseHandler(handler))
+        super.onReleaseHandler(handler);
+        if (mImageResIdHandler == handler)
         {
-            return true;
-        } else
-        {
-            if (handler == mImageResIdHandler)
-            {
-                mImageResIdHandler = null;
-                return true;
-            }
-            return false;
+            mImageResIdHandler = null;
         }
     }
 
@@ -66,7 +56,7 @@ public class SDSelectImageViewConfig extends SDSelectViewConfig
     {
         if (mImageResIdHandler == null)
         {
-            mImageResIdHandler = new ImageViewImageResIdHandler(getView());
+            mImageResIdHandler = new ImageViewImageResIdHandler(getView(), this);
         }
         return mImageResIdHandler;
     }

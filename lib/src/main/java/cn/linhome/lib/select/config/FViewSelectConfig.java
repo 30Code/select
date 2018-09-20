@@ -29,38 +29,39 @@ import java.util.List;
 /**
  * View的参数配置
  */
-public class SDSelectViewConfig
+public class FViewSelectConfig implements ViewPropertyHandler.OnValueChangedCallback
 {
     private Context mContext;
     private WeakReference<View> mView;
 
-    private List<ViewPropertyHandler> mListHandler;
+    private List<ViewPropertyHandler> mListHandler = new ArrayList<>();
+
     private ViewBackgroundHandler mBackgroundHandler;
     private ViewAlphaHandler mAlphaHandler;
     private ViewWidthHandler mWidthHandler;
     private ViewHeightHandler mHeightHandler;
     private ViewVisibilityHandler mVisibilityHandler;
 
-    protected SDSelectViewConfig(View view)
+    protected FViewSelectConfig(View view)
     {
         setView(view);
     }
 
-    public static SDSelectViewConfig config(View view)
+    public static FViewSelectConfig config(View view)
     {
-        SDSelectViewConfig config = new SDSelectViewConfig(view);
+        FViewSelectConfig config = new FViewSelectConfig(view);
         return config;
     }
 
-    public static SDSelectImageViewConfig configImage(ImageView view)
+    public static FImageViewSelectConfig configImage(ImageView view)
     {
-        SDSelectImageViewConfig config = new SDSelectImageViewConfig(view);
+        FImageViewSelectConfig config = new FImageViewSelectConfig(view);
         return config;
     }
 
-    public static SDSelectTextViewConfig configText(TextView view)
+    public static FTextViewSelectConfig configText(TextView view)
     {
-        SDSelectTextViewConfig config = new SDSelectTextViewConfig(view);
+        FTextViewSelectConfig config = new FTextViewSelectConfig(view);
         return config;
     }
 
@@ -88,12 +89,9 @@ public class SDSelectViewConfig
             return;
         }
 
-        if (mListHandler != null)
+        for (ViewPropertyHandler item : mListHandler)
         {
-            for (ViewPropertyHandler item : mListHandler)
-            {
-                item.setSelected(selected);
-            }
+            item.setSelected(selected);
         }
 
         if (invokeViewSelected)
@@ -102,111 +100,101 @@ public class SDSelectViewConfig
         }
     }
 
-    //---------- properties start ----------
-
-    public SDSelectViewConfig setBackgroundNormal(Drawable value)
-    {
-        getBackgroundHandler().setValueNormal(value);
-        addOrRemoveHandler(getBackgroundHandler());
-        return this;
-    }
-
-    public SDSelectViewConfig setBackgroundSelected(Drawable value)
-    {
-        getBackgroundHandler().setValueSelected(value);
-        addOrRemoveHandler(getBackgroundHandler());
-        return this;
-    }
-
-    public SDSelectViewConfig setBackgroundResIdNormal(Integer value)
+    public FViewSelectConfig setBackgroundResIdNormal(Integer value)
     {
         setBackgroundNormal(value == null ? null : getContext().getResources().getDrawable(value));
         return this;
     }
 
-    public SDSelectViewConfig setBackgroundResIdSelected(Integer value)
+    public FViewSelectConfig setBackgroundResIdSelected(Integer value)
     {
         setBackgroundSelected(value == null ? null : getContext().getResources().getDrawable(value));
         return this;
     }
 
-    public SDSelectViewConfig setBackgroundColorNormal(Integer value)
+    public FViewSelectConfig setBackgroundColorNormal(Integer value)
     {
         setBackgroundNormal(value == null ? null : new ColorDrawable(value));
         return this;
     }
 
-    public SDSelectViewConfig setBackgroundColorSelected(Integer value)
+    public FViewSelectConfig setBackgroundColorSelected(Integer value)
     {
         setBackgroundSelected(value == null ? null : new ColorDrawable(value));
         return this;
     }
 
-    public SDSelectViewConfig setBackgroundColorResIdNormal(Integer value)
+    public FViewSelectConfig setBackgroundColorResIdNormal(Integer value)
     {
         setBackgroundColorNormal(value == null ? null : getContext().getResources().getColor(value));
         return this;
     }
 
-    public SDSelectViewConfig setBackgroundColorResIdSelected(Integer value)
+    public FViewSelectConfig setBackgroundColorResIdSelected(Integer value)
     {
         setBackgroundColorSelected(value == null ? null : getContext().getResources().getColor(value));
         return this;
     }
 
-    public SDSelectViewConfig setAlphaNormal(Float value)
+    //---------- property start ----------
+
+    public FViewSelectConfig setBackgroundNormal(Drawable value)
+    {
+        getBackgroundHandler().setValueNormal(value);
+        return this;
+    }
+
+    public FViewSelectConfig setBackgroundSelected(Drawable value)
+    {
+        getBackgroundHandler().setValueSelected(value);
+        return this;
+    }
+
+    public FViewSelectConfig setAlphaNormal(Float value)
     {
         getAlphaHandler().setValueNormal(value);
-        addOrRemoveHandler(getAlphaHandler());
         return this;
     }
 
-    public SDSelectViewConfig setAlphaSelected(Float value)
+    public FViewSelectConfig setAlphaSelected(Float value)
     {
         getAlphaHandler().setValueSelected(value);
-        addOrRemoveHandler(getAlphaHandler());
         return this;
     }
 
-    public SDSelectViewConfig setWidthNormal(Integer value)
+    public FViewSelectConfig setWidthNormal(Integer value)
     {
         getWidthHandler().setValueNormal(value);
-        addOrRemoveHandler(getWidthHandler());
         return this;
     }
 
-    public SDSelectViewConfig setWidthSelected(Integer value)
+    public FViewSelectConfig setWidthSelected(Integer value)
     {
         getWidthHandler().setValueSelected(value);
-        addOrRemoveHandler(getWidthHandler());
         return this;
     }
 
-    public SDSelectViewConfig setHeightNormal(Integer value)
+    public FViewSelectConfig setHeightNormal(Integer value)
     {
         getHeightHandler().setValueNormal(value);
-        addOrRemoveHandler(getHeightHandler());
         return this;
     }
 
-    public SDSelectViewConfig setHeightSelected(Integer value)
+    public FViewSelectConfig setHeightSelected(Integer value)
     {
         getHeightHandler().setValueSelected(value);
-        addOrRemoveHandler(getHeightHandler());
         return this;
     }
 
-    public SDSelectViewConfig setVisibilityNormal(Integer value)
+    public FViewSelectConfig setVisibilityNormal(Integer value)
     {
         getVisibilityHandler().setValueNormal(value);
-        addOrRemoveHandler(getVisibilityHandler());
         return this;
     }
 
-    public SDSelectViewConfig setVisibilitySelected(Integer value)
+    public FViewSelectConfig setVisibilitySelected(Integer value)
     {
         getVisibilityHandler().setValueSelected(value);
-        addOrRemoveHandler(getVisibilityHandler());
         return this;
     }
 
@@ -228,7 +216,7 @@ public class SDSelectViewConfig
         }
     }
 
-    private SDSelectViewConfig setView(View view)
+    private FViewSelectConfig setView(View view)
     {
         final View oldView = getView();
         if (oldView != view)
@@ -236,7 +224,6 @@ public class SDSelectViewConfig
             if (view != null)
             {
                 mView = new WeakReference<>(view);
-
                 mContext = view.getContext().getApplicationContext();
             } else
             {
@@ -250,7 +237,7 @@ public class SDSelectViewConfig
     {
         if (mBackgroundHandler == null)
         {
-            mBackgroundHandler = new ViewBackgroundHandler(getView());
+            mBackgroundHandler = new ViewBackgroundHandler(getView(), this);
         }
         return mBackgroundHandler;
     }
@@ -259,7 +246,7 @@ public class SDSelectViewConfig
     {
         if (mAlphaHandler == null)
         {
-            mAlphaHandler = new ViewAlphaHandler(getView());
+            mAlphaHandler = new ViewAlphaHandler(getView(), this);
         }
         return mAlphaHandler;
     }
@@ -268,7 +255,7 @@ public class SDSelectViewConfig
     {
         if (mWidthHandler == null)
         {
-            mWidthHandler = new ViewWidthHandler(getView());
+            mWidthHandler = new ViewWidthHandler(getView(), this);
         }
         return mWidthHandler;
     }
@@ -277,7 +264,7 @@ public class SDSelectViewConfig
     {
         if (mHeightHandler == null)
         {
-            mHeightHandler = new ViewHeightHandler(getView());
+            mHeightHandler = new ViewHeightHandler(getView(), this);
         }
         return mHeightHandler;
     }
@@ -286,36 +273,20 @@ public class SDSelectViewConfig
     {
         if (mVisibilityHandler == null)
         {
-            mVisibilityHandler = new ViewVisibilityHandler(getView());
+            mVisibilityHandler = new ViewVisibilityHandler(getView(), this);
         }
         return mVisibilityHandler;
     }
 
-    /**
-     * 把handler添加到列表或者从列表移除
-     *
-     * @param handler
-     * @return true-添加,false-移除
-     */
-    protected final void addOrRemoveHandler(ViewPropertyHandler handler)
+    @Override
+    public final void onValueChanged(boolean selectedValue, Object value, ViewPropertyHandler handler)
     {
         if (handler.isEmpty())
         {
-            if (mListHandler != null)
-            {
-                mListHandler.remove(handler);
-                if (mListHandler.isEmpty())
-                {
-                    mListHandler = null;
-                }
-            }
+            mListHandler.remove(handler);
             onReleaseHandler(handler);
         } else
         {
-            if (mListHandler == null)
-            {
-                mListHandler = new ArrayList<>();
-            }
             if (!mListHandler.contains(handler))
             {
                 mListHandler.add(handler);
@@ -323,29 +294,23 @@ public class SDSelectViewConfig
         }
     }
 
-    protected boolean onReleaseHandler(ViewPropertyHandler handler)
+    protected void onReleaseHandler(ViewPropertyHandler handler)
     {
-        if (handler == mAlphaHandler)
+        if (mAlphaHandler == handler)
         {
             mAlphaHandler = null;
-            return true;
-        } else if (handler == mBackgroundHandler)
+        } else if (mBackgroundHandler == handler)
         {
             mBackgroundHandler = null;
-            return true;
-        } else if (handler == mWidthHandler)
+        } else if (mWidthHandler == handler)
         {
             mWidthHandler = null;
-            return true;
-        } else if (handler == mHeightHandler)
+        } else if (mHeightHandler == handler)
         {
             mHeightHandler = null;
-            return true;
-        } else if (handler == mVisibilityHandler)
+        } else if (mVisibilityHandler == handler)
         {
             mVisibilityHandler = null;
-            return true;
         }
-        return false;
     }
 }

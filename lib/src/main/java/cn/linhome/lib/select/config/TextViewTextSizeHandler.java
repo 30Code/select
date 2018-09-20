@@ -19,12 +19,11 @@ import android.util.TypedValue;
 import android.view.View;
 import android.widget.TextView;
 
-
 class TextViewTextSizeHandler extends ViewPropertyHandler<Integer>
 {
-    public TextViewTextSizeHandler(View view)
+    public TextViewTextSizeHandler(View view, OnValueChangedCallback onValueChangedCallback)
     {
-        super(view);
+        super(view, onValueChangedCallback);
         if (!(view instanceof TextView))
         {
             throw new IllegalArgumentException("view must be instance of TextView");

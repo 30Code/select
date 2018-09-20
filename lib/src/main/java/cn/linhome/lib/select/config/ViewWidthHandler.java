@@ -18,12 +18,11 @@ package cn.linhome.lib.select.config;
 import android.view.View;
 import android.view.ViewGroup;
 
-
 class ViewWidthHandler extends ViewPropertyHandler<Integer>
 {
-    public ViewWidthHandler(View view)
+    public ViewWidthHandler(View view, OnValueChangedCallback onValueChangedCallback)
     {
-        super(view);
+        super(view, onValueChangedCallback);
     }
 
     @Override
