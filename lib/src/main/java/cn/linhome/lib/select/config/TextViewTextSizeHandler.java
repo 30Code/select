@@ -15,6 +15,7 @@
  */
 package cn.linhome.lib.select.config;
 
+import android.graphics.Typeface;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.TextView;
@@ -39,5 +40,10 @@ class TextViewTextSizeHandler extends ViewPropertyHandler<Integer>
         }
         TextView textView = (TextView) view;
         textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, value);
+        if (selected) {
+            textView.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
+        } else {
+            textView.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
+        }
     }
 }
