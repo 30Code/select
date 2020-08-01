@@ -10,7 +10,7 @@ android {
         minSdkVersion 15
         targetSdkVersion 29
         versionCode 20200801
-        versionName "1.1.7"
+        versionName "1.1.8"
     }
 
     buildTypes {

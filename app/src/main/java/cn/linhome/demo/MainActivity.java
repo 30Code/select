@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity
                 .setTextColorNormal(Color.parseColor("#616161"))
                 .setTextColorSelected(Color.parseColor("#f57c00"))
                 .setTextSizeNormal(40)
-                .setTextSizeSelected(60)
+                .setTextSizeSelected(40)
                 .setAlphaNormal(0.2f)
                 .setAlphaSelected(1.0f)
                 .setSelected(false); //设置默认未选中
